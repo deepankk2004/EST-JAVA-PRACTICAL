@@ -1,0 +1,67 @@
+import java.util.*;
+
+// Card class representing a single playing card
+class Card {
+    private String symbol; // Hearts, Spades
+    private String value;  //Ace, 2, 3, ..., King
+
+    public Card(String symbol, String value) {
+        this.symbol = symbol;
+        this.value = value;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return value + " of " + symbol;
+    }
+}
+
+// Main class to manage the collection of cards
+public class CardCollection {
+
+    public static void main(String[] args) {
+        // Use a Map to group cards by symbol
+        Map<String, List<Card>> cardMap = new HashMap<>();
+
+        // Define possible symbols and values
+        String[] symbols = {"Hearts", "Spades", "Diamonds", "Clubs"};
+        String[] values = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+
+        // Fill the collection with cards
+        for (String symbol : symbols) {
+            List<Card> cardList = new ArrayList<>();
+            for (String value : values) {
+                cardList.add(new Card(symbol, value));
+            }
+            cardMap.put(symbol, cardList);
+        }
+
+        // Display avb symbols
+        System.out.println("Available Symbols: " + cardMap.keySet());
+
+        // user to search for cards by symbol
+        Scanner sc = new Scanner(System.in);
+        System.out.print("\nEnter a symbol to display all its cards: ");
+        String userSymbol = sc.nextLine().trim();
+
+        // Find and display cards for that symbol
+        if (cardMap.containsKey(userSymbol)) {
+            System.out.println("\nCards in " + userSymbol + ":");
+            for (Card c : cardMap.get(userSymbol)) {
+                System.out.println(c);
+            }
+        } else {
+            System.out.println("Invalid symbol! Please enter one from: " + cardMap.keySet());
+        }
+
+        sc.close();
+    }
+}
